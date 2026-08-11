@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ιερός Ναός</title>
+
+    <!-- Προσύνδεση για ταχύτερη φόρτωση γραμματοσειρών -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<audio id="bgMusic" src="Απολυτίκιο Αγίου Παντελεήμονος.mp3" loop></audio>
+
+    <header>
+        <h2>Ιερός Ναός</h2>
+    </header>
+
+    <nav>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Άνοιγμα μενού">
+            &#9776;
+        </button>
+        <ul id="nav-menu">
+            <li><a href="#home">Αρχική</a></li>
+            <li><a href="#schedule">Πρόγραμμα</a></li>
+            <li><a href="#announcements">Ανακοινώσεις</a></li>
+            <li><a href="#about">Ο Ναός</a></li>
+            <li><a href="#gallery">Φωτογραφίες</a></li>
+            <li><a href="#location">Χάρτης</a></li>
+            <li><a href="#contact-form">Φόρμα</a></li>
+            <li><a href="#contact">Επικοινωνία</a></li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <section id="home">
+           <!-- <h2>Καλώς ήρθατε</h2> -->
+
+            <div class="home-layout">
+
+                <div class="home-photo">
+                    <img src="assets/ag.panteleimon.jpg" alt="Ο Ιερός Ναός">
+                </div>
+
+                <aside class="home-sidebar">
+
+                    <div class="calendar-card" id="calendar-card">
+                        <div class="calendar-header" id="cal-day-name">...</div>
+                        <div class="calendar-body">
+                            <div class="calendar-date-num" id="cal-date-num">--</div>
+                            <div class="calendar-month" id="cal-month">...</div>
+                            <div class="calendar-year" id="cal-year">----</div>
+                            <div class="calendar-feast" id="cal-feast">Φόρτωση εορτολογίου...</div>
+                        </div>
+                    </div>
+
+                    <div class="news-box">
+                        <h3>Τελευταία Νέα</h3>
+                        <ul class="news-list" id="news-list">
+                            <!-- Τα νέα θα δημιουργηθούν εδώ δυναμικά από το js/main.js -->
+                        </ul>
+                    </div>
+
+                </aside>
+
+            </div>
+        </section>
+
+        <section id="schedule">
+            <h2>Πρόγραμμα Ακολουθιών</h2>
+            <div class="schedule-grid" id="schedule-grid">
+                <!-- Οι κάρτες θα δημιουργηθούν εδώ δυναμικά από το js/main.js -->
+            </div>
+        </section>
+         <section id="schedule">
+            <h2>Θεολογία και Πίστη</h2>
+            <div class="schedule-grid" id="theology-grid">
+                <!-- Οι κάρτες θα δημιουργηθούν εδώ δυναμικά από το js/main.js -->
+            </div>
+        </section>
+        <section id="about">
+            <h2>Ο Ναός</h2>
+            <p>Ιστορία και πληροφορίες για τον ναό.</p>
+        </section>
+
+        <section id="gallery">
+            <h2>Φωτογραφίες</h2>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Οι φωτογραφίες θα δημιουργηθούν εδώ δυναμικά από το js/main.js -->
+            </div>
+        </section>
+
+        <section id="location">
+            <h2>Πώς θα μας βρείτε</h2>
+            <div class="map-wrapper">
+                <iframe
+                    src="https://www.google.com/maps?q=Αθήνα,Ελλάδα&output=embed"
+                    loading="lazy"
+                    title="Χάρτης τοποθεσίας ναού">
+                </iframe>
+            </div>
+        </section>
+
+        <section id="contact-form">
+            <h2>Επικοινωνήστε μαζί μας</h2>
+            <form id="contact-form-el" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+                <div class="form-group">
+                    <label for="name">Ονοματεπώνυμο</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Μήνυμα</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <button type="submit">Αποστολή</button>
+
+                <p id="form-status"></p>
+
+            </form>
+        </section>
+
+        <section id="announcements">
+            <h2>Ανακοινώσεις</h2>
+            <p>Εδώ θα εμφανίζονται οι τρέχουσες ανακοινώσεις του ναού.</p>
+        </section>
+
+    </main>
+
+    <footer id="contact">
+        <div class="footer-grid">
+
+            <div class="footer-block">
+                <h3>Διεύθυνση</h3>
+                <p>Οδός Παραδείγματος 12<br>Αθήνα, 10431</p>
+            </div>
+
+            <div class="footer-block">
+                <h3>Επικοινωνία</h3>
+                <p>Τηλ: <a href="tel:+302101234567">210 123 4567</a></p>
+                <p>Email: <a href="mailto:info@example.gr">info@example.gr</a></p>
+            </div>
+
+            <div class="footer-block">
+                <h3>Ώρες Γραφείου</h3>
+                <p>Δευτ - Παρ: 9:00 - 14:00</p>
+            </div>
+
+        </div>
+
+        <p class="copyright">&copy; 2026 Ιερός Ναός. Όλα τα δικαιώματα διατηρούνται.</p>
+    </footer>
+
+    <!-- Lightbox: ένα μοναδικό στοιχείο, κρυφό εξ ορισμού, που "ξαναχρησιμοποιείται"
+         για ΚΑΘΕ φωτογραφία -- δεν φτιάχνουμε ξεχωριστό modal ανά φωτογραφία -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Κλείσιμο">&times;</button>
+        <img src="" alt="" id="lightbox-img">
+        <p id="lightbox-caption"></p>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/audio.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+    "churchInfo": {
+        "name": "Ιερός Ναός",
+        "address": "Οδός Παραδείγματος 12, Αθήνα, 10431",
+        "phone": "+302101234567",
+        "phoneDisplay": "210 123 4567",
+        "email": "info@example.gr",
+        "officeHours": "Δευτ - Παρ: 9:00 - 14:00"
+    },
+
+    "schedule": [
+        {
+            "date": "Σάββατο 22 Αυγούστου",
+            "time": "7:00 μ.μ.",
+            "title": "Εσπερινός"
+        },
+        {
+            "date": "Κυριακή 23 Αυγούστου",
+            "time": "7:00 π.μ.",
+            "title": "Όρθρος - Θ. Λειτουργία"
+        },
+        {
+            "date": "Τετάρτη 26 Αυγούστου",
+            "time": "7:00 μ.μ.",
+            "title": "Εσπερινός"
+        }
+    ],
+
+    "gallery": [
+        {
+            "src": "https://picsum.photos/seed/church1/500/400",
+            "alt": "Ο ναός από έξω",
+            "caption": "Ο Ιερός Ναός"
+        },
+        {
+            "src": "https://picsum.photos/seed/church2/500/400",
+            "alt": "Το εσωτερικό του ναού",
+            "caption": "Το τέμπλο"
+        },
+        {
+            "src": "https://picsum.photos/seed/church3/500/400",
+            "alt": "Πανηγύρι του ναού",
+            "caption": "Πανηγύρι Αυγούστου"
+        }
+    ],
+
+    "news": [
+        {
+            "title": "Πανηγυρικός Εσπερινός του Αποστόλου Παύλου",
+            "url": "#"
+        },
+        {
+            "title": "Ανακοίνωση για το πρόγραμμα Αυγούστου",
+            "url": "#"
+        },
+        {
+            "title": "Ο γάμος μας",
+            "url": "#"
+        }
+    ],
+
+    "theology": [
+        {
+            "picture": "https://eisodia-arachova.gr/wp-content/uploads/2026/07/artoi_psaria_1.jpeg",
+            "title": "Η σημασία της προσευχής",
+            "url": "pages/theology-1.html"
+        },
+        {
+            "picture": "https://eisodia-arachova.gr/wp-content/uploads/2026/08/images.jpg",
+            "title": "Η Θεία Λειτουργία",
+            "url": "pages/theology-2.html"
+        },
+        {
+            "title": "Η νηστεία στην Ορθόδοξη παράδοση",
+            "url": "pages/theology-3.html"
+        }
+    ]
+}

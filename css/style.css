@@ -1,0 +1,584 @@
+/* ============================
+   1. CSS RESET
+   Οι browsers έχουν διαφορετικά προεπιλεγμένα στυλ.
+   Το reset τα μηδενίζει ώστε να ξεκινάμε όλοι από την ίδια βάση.
+   ============================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================
+   2. ΒΑΣΙΚΕΣ ΜΕΤΑΒΛΗΤΕΣ (CSS Variables)
+   Ορίζουμε τα χρώματα/γραμματοσειρές ΜΙΑ φορά εδώ,
+   και τα ξαναχρησιμοποιούμε παντού. Αν αλλάξουμε γνώμη,
+   αλλάζουμε μόνο εδώ, όχι σε 50 σημεία.
+   ============================ */
+:root {
+    --color-primary: #2c3e6b;   /* βαθύ μπλε - βυζαντινή αισθητική */
+    --color-accent: #c9a227;    /* χρυσαφί */
+    --color-bg: #faf8f3;        /* απαλό εκρού φόντο */
+    --color-text: #2b2b2b;      /* σχεδόν μαύρο, όχι σκέτο μαύρο */
+    --font-heading: 'GFS Didot', Georgia, 'Times New Roman', serif;
+    --font-body: 'Noto Serif', Georgia, serif;
+}
+
+/* ============================
+   3. ΓΕΝΙΚΟ STYLING ΣΩΜΑΤΟΣ
+   ============================ */
+body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    line-height: 1.6;
+}
+
+/* ============================
+   4. HEADER
+   ============================ */
+header {
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+    padding: 1.2rem 1rem;    /* ήταν 2rem 1rem -- το ΠΡΩΤΟ νούμερο (κάθετο padding) καθορίζει το ύψος */
+}
+
+header h1 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+/* ============================
+   5. NAVIGATION
+   ============================ */
+nav {
+    background-color: var(--color-accent);
+}
+
+.nav-toggle {
+    display: none;              /* κρυφό σε desktop -- εμφανίζεται μόνο στο media query */
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    text-align: left;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+}
+
+nav ul {
+    list-style: none;           /* αφαιρεί τις κουκκίδες της λίστας */
+    display: flex;              /* βάζει τα στοιχεία σε μία γραμμή */
+    justify-content: center;
+    flex-wrap: wrap;            /* επιτρέπει αλλαγή γραμμής σε μικρή οθόνη */
+}
+
+nav li {
+    margin: 0;
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-decoration: none;      /* αφαιρεί την υπογράμμιση */
+    padding: 1rem 1.25rem;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+nav a:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* ============================
+   6. MAIN CONTENT / SECTIONS
+   ============================ */
+main {
+    max-width: 1140px;   /* από 800px -- πιο πλατύ, ταιριάζει σε layout με εικόνες/grids */
+    margin: 0 auto;             /* κεντράρει το main οριζόντια */
+    padding: 2rem 1rem;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+section h2 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* ============================
+   6d. HOME LAYOUT: φωτογραφία + sidebar (Μάθημα 15)
+   ============================ */
+.home-layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr;   /* ήταν 2fr 1fr -- τώρα ~75%/25% αντί για ~67%/33% */
+    gap: 1.5rem;
+    align-items: start;               /* οι στήλες δεν "τεντώνονται" σε ίσο ύψος -- κρατούν το φυσικό τους */
+}
+
+.home-photo img {
+    width: 100%;
+    aspect-ratio: 4 / 3;    /* πλάτος:ύψος -- μικρότερος 2ος αριθμός = ΨΗΛΟΤΕΡΗ εικόνα */
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+}
+
+.home-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.news-box {
+    background-color: white;
+    border: 1px solid #e0dcd0;
+    border-radius: 6px;
+    padding: 1.25rem;
+}
+
+.news-box h3 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.news-list {
+    list-style: none;
+}
+
+.news-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.news-list li:last-child {
+    border-bottom: none;      /* το τελευταίο στοιχείο δεν χρειάζεται διαχωριστική γραμμή */
+}
+
+.news-list a {
+    color: var(--color-primary);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.news-list a:hover {
+    color: var(--color-accent);
+}
+
+/* ============================
+   6d(b). CALENDAR CARD -- προσαρμογή για να χωράει στο sidebar
+   (πριν ήταν μόνο του, στο κέντρο -- τώρα γεμίζει το πλάτος της στήλης του)
+   ============================ */
+.calendar-card {
+    width: 100%;
+    margin: 0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    position: relative;         /* απαραίτητο -- το ::after παρακάτω τοποθετείται ΣΧΕΤΙΚΑ με αυτό */
+}
+
+.calendar-header {
+    background-color: var(--color-primary);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 0.8rem;
+}
+
+.calendar-body {
+    text-align: center;
+    padding: 1.5rem 1rem 1.25rem;
+}
+
+.calendar-date-num {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1;
+    color: var(--color-text);
+}
+
+.calendar-month,
+.calendar-year {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.calendar-feast {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed #ccc;
+    font-family: var(--font-heading);
+    font-style: italic;
+    color: var(--color-primary);
+    font-size: 0.95rem;
+}
+
+/* Το "τσαλακωμένο" γωνιακό, κάτω-δεξιά -- προσομοιώνει σελίδα ημερολογίου.
+   Το ::after δημιουργεί ένα "φανταστικό" στοιχείο, χωρίς να χρειάζεται
+   επιπλέον <div> στο HTML -- καθαρά διακοσμητικό. */
+.calendar-card::after {
+    content: '';                 /* υποχρεωτικό για κάθε ::after/::before, ακόμα κι αν είναι κενό */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 26px 26px;                          /* σχηματίζει τρίγωνο */
+    border-color: transparent transparent #e8e4da transparent;
+    filter: drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.2)); /* ελαφριά σκιά για βάθος */
+}
+
+/* ============================
+   6b. SCHEDULE GRID (Μάθημα 3)
+   ============================ */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+}
+
+.schedule-card {
+    background-color: white;
+    border: 1px solid #e0dcd0;
+    border-left: 4px solid var(--color-accent);
+    border-radius: 4px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.schedule-date {
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.schedule-time {
+    color: var(--color-accent);
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0.25rem 0;
+}
+
+.schedule-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+}
+
+/* ============================
+   6e. THEOLOGY CAROUSEL (νέο μάθημα)
+   ============================ */
+.theology-carousel {
+    display: flex;                    /* σε ΓΡΑΜΜΗ, αντί για grid -- επιτρέπει οριζόντιο scroll */
+    gap: 1.25rem;
+    overflow-x: auto;                 /* εμφανίζει οριζόντιο scrollbar όταν οι κάρτες δεν χωράνε */
+    padding-bottom: 0.75rem;          /* χώρος ώστε το scrollbar να μην "κολλάει" πάνω στις κάρτες */
+    scroll-snap-type: x mandatory;    /* το scroll "κουμπώνει" σε κάθε κάρτα, δεν σταματάει στη μέση */
+}
+
+.theology-card {
+    flex: 0 0 220px;      /* σταθερό πλάτος 220px, ΔΕΝ μεγαλώνει ΟΥΤΕ μικραίνει (0 0) */
+    scroll-snap-align: start;
+    display: block;
+    background-color: white;
+    border: 1px solid #e0dcd0;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    text-decoration: none;    /* το card είναι ολόκληρο ένα <a> -- αφαιρούμε την υπογράμμιση συνδέσμου */
+    color: inherit;           /* και κρατάμε τα κανονικά χρώματα κειμένου, όχι το μπλε των links */
+    transition: transform 0.2s ease;
+}
+
+.theology-card:hover {
+    transform: translateY(-4px);   /* ανεβαίνει ελαφρώς κατά το hover -- δίνει αίσθηση "κλικαρίσιμου" */
+}
+
+.theology-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+}
+
+.theology-card-title {
+    padding: 0.9rem;
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 1rem;
+}
+
+/* ============================
+   16. MUSIC TOGGLE BUTTON
+   ============================ */
+.music-toggle {
+    position: fixed;         /* "κολλάει" στην οθόνη -- πάντα ορατό, ό,τι κι αν κάνεις scroll */
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;      /* κάνει το κουμπί κύκλο */
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    z-index: 900;            /* πάνω από το υπόλοιπο περιεχόμενο, κάτω από το lightbox (1000) */
+}
+
+.music-toggle:hover {
+    background-color: var(--color-accent);
+}
+
+/* ============================
+   6c. GALLERY GRID (Μάθημα 9)
+   ============================ */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.gallery-item {
+    position: relative;         /* ώστε το caption να τοποθετηθεί ΠΑΝΩ στην εικόνα */
+    overflow: hidden;           /* κόβει ό,τι ξεπερνά τα όρια (π.χ. στο hover zoom) */
+    border-radius: 4px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;          /* γεμίζει το κουτί χωρίς να "τεντώνει" την εικόνα */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);     /* ελαφρύ ζουμ όταν περνάει το ποντίκι από πάνω */
+}
+
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+    color: white;
+    padding: 2rem 0.75rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+.gallery-item {
+    cursor: pointer;    /* δείχνει στον χρήστη ότι μπορεί να κάνει κλικ */
+}
+
+/* ============================
+   10. LIGHTBOX (Μάθημα 10)
+   ============================ */
+.lightbox {
+    display: none;            /* κρυφό εξ ορισμού */
+    position: fixed;          /* "κολλάει" στην οθόνη, όχι στη σελίδα -- δεν κυλάει με scroll */
+    inset: 0;                 /* συντομογραφία για top:0; right:0; bottom:0; left:0 -- καλύπτει ΟΛΗ την οθόνη */
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;            /* το βάζει ΠΑΝΩ από όλα τα υπόλοιπα στοιχεία της σελίδας */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.lightbox.active {
+    display: flex;            /* εμφανίζεται όταν προστεθεί η κλάση 'active' -- ίδιο pattern με το nav-open */
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 80vh;         /* vh = "viewport height" -- 80% του ύψους της οθόνης, ό,τι κι αν είναι */
+    border-radius: 4px;
+}
+
+.lightbox-caption {
+    color: white;
+    margin-top: 1rem;
+    font-family: var(--font-heading);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* ============================
+   11. ΦΟΡΜΑ ΕΠΙΚΟΙΝΩΝΙΑΣ (Μάθημα 11)
+   ============================ */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;              /* το label πάει σε δική του γραμμή, πάνω από το πεδίο */
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    color: var(--color-primary);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;                       /* αφαιρούμε το προεπιλεγμένο μπλε περίγραμμα του browser */
+    border-color: var(--color-accent);   /* και βάζουμε το δικό μας -- πιο ταιριαστό οπτικά */
+}
+
+#contact-form-el button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#contact-form-el button:hover {
+    background-color: var(--color-accent);
+}
+
+#form-status {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+/* ============================
+   12. GOOGLE MAPS EMBED (Μάθημα 12)
+   ============================ */
+.map-wrapper {
+    aspect-ratio: 16 / 3;      /* διατηρεί σταθερή αναλογία πλάτους/ύψους σε ΚΑΘΕ οθόνη */
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #e0dcd0;
+}
+
+.map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;                 /* το iframe έχει default border σε κάποιους browsers -- το αφαιρούμε */
+}
+
+/* ============================
+   7. FOOTER
+   ============================ */
+footer {
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+    padding: 2.5rem 1rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* ============================
+   8. MEDIA QUERY — μόνο για ό,τι το auto-fit ΔΕΝ λύνει
+   Ισχύει όταν το πλάτος της οθόνης είναι 480px ή λιγότερο
+   (τυπικό μικρό κινητό, π.χ. σε landscape ή παλιά μοντέλα)
+   ============================ */
+@media (max-width: 480px) {
+
+    header h1 {
+        font-size: 1.5rem;   /* από 2rem -> 1.5rem, αλλιώς "σπάει" σε 2 γραμμές άσχημα */
+    }
+
+    main {
+        padding: 1.5rem 1rem;     /* λιγότερο κενό στα πλάγια σε στενή οθόνη */
+    }
+
+}
+
+/* ============================
+   9. MEDIA QUERY — Hamburger menu (Μάθημα 8)
+   Ξεχωριστό breakpoint από το παραπάνω, γιατί το μενού αρχίζει
+   να στριμώχνεται νωρίτερα (σε ελαφρώς μεγαλύτερη οθόνη)
+   απ' ό,τι ο τίτλος του header
+   ============================ */
+@media (max-width: 640px) {
+
+    .nav-toggle {
+        display: block;      /* τώρα εμφανίζεται το κουμπί ☰ */
+    }
+
+    nav ul {
+        display: none;             /* το μενού είναι κρυφό από προεπιλογή */
+        flex-direction: column;    /* όταν ανοίξει, τα links κάθονται το ένα κάτω απ' το άλλο */
+    }
+
+    nav ul.nav-open {
+        display: flex;             /* η κλάση που θα προσθέτει/αφαιρεί το JS */
+    }
+
+    nav a {
+        padding: 0.75rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    .home-layout {
+        grid-template-columns: 1fr;   /* μία στήλη: πρώτα η φωτογραφία, μετά το sidebar */
+    }
+
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    text-align: left;
+}
+
+.footer-block h3 {
+    font-family: var(--font-heading);
+    color: var(--color-accent);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-block a {
+    color: white;
+}
+
+.copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 1rem;
+}
