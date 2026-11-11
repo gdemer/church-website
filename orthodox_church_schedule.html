@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Πρόγραμμα Ιερών Ακολουθιών</title>
+    <!-- Google Fonts for Byzantine / Calligraphic aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        /* Base page styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #2b2b2b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'GFS Didot', 'Philosopher', serif;
+        }
+
+        /* Poster Container with Aged Parchment Look */
+        .poster-container {
+            width: 100%;
+            max-width: 780px;
+            background-color: #f7ebba;
+            background-image: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(212, 191, 127, 0.3) 100%),
+                radial-gradient(at top left, rgba(184, 150, 78, 0.2) 0%, transparent 50%),
+                radial-gradient(at bottom right, rgba(160, 120, 50, 0.25) 0%, transparent 50%);
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+        }
+
+        /* SVG Ornamental Frame Wrapper */
+        .frame-wrapper {
+            border: 14px solid transparent;
+            border-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><path d='M0 0 h60 v60 h-60 z' fill='none' stroke='%23111111' stroke-width='4'/><path d='M10 10 h40 v40 h-40 z' fill='none' stroke='%23111111' stroke-width='2'/><circle cx='30' cy='30' r='12' fill='none' stroke='%23111111' stroke-width='3'/><path d='M30 5 C15 5 5 15 5 30 C5 45 15 55 30 55 C45 55 55 45 55 30 C55 15 45 5 30 5 Z' fill='none' stroke='%23111111' stroke-width='1.5'/><circle cx='30' cy='30' r='4' fill='%23111111'/><path d='M0 0 Q30 30 60 0 Q30 30 60 60 Q30 30 0 60 Q30 30 0 0 Z' fill='none' stroke='%23111111' stroke-width='2'/></svg>") 30 stretch;
+            padding: 15px 25px 25px 25px;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        /* Double Inner Line Frame */
+        .inner-border {
+            outline: 2px solid #1a1a1a;
+            outline-offset: -6px;
+            padding: 20px 15px;
+        }
+
+        /* Color Palette Classes matching the original image */
+        .color-red {
+            color: #8c1010;
+        }
+
+        .color-blue {
+            color: #192a56;
+        }
+
+        .color-green {
+            color: #2b5e2b;
+        }
+
+        /* Typography & Alignment */
+        .text-center {
+            text-align: center;
+        }
+
+        .header-section {
+            margin-bottom: 22px;
+        }
+
+        .title-main {
+            font-size: 1.65rem;
+            font-weight: 700;
+            line-height: 1.35;
+            letter-spacing: 0.3px;
+        }
+
+        .title-sub {
+            font-size: 1.45rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-top: 4px;
+        }
+
+        .title-dates {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-top: 4px;
+        }
+
+        /* Decorative Separator */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0 12px 0;
+        }
+
+        .divider svg {
+            width: 180px;
+            height: 20px;
+            fill: #192a56;
+        }
+
+        /* Daily Schedule Items */
+        .day-group {
+            margin-bottom: 16px;
+        }
+
+        .day-header {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .day-header .saint {
+            display: block;
+            font-size: 1.25rem;
+        }
+
+        .event-row {
+            margin-bottom: 6px;
+            line-height: 1.35;
+            font-size: 1.15rem;
+            padding-left: 5px;
+        }
+
+        .time-tag {
+            font-weight: 700;
+            font-style: italic;
+            display: inline-block;
+            min-width: 125px;
+        }
+
+        .event-desc {
+            font-weight: 600;
+        }
+
+        .location {
+            font-weight: 600;
+        }
+
+        /* Footer styling */
+        .footer-section {
+            margin-top: 25px;
+            text-align: right;
+            padding-right: 15px;
+        }
+
+        .footer-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        /* Print Optimization */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .poster-container {
+                box-shadow: none;
+                max-width: 100%;
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+
+        /* Responsive adjustments for mobile screens */
+        @media (max-width: 600px) {
+            .poster-container {
+                padding: 15px;
+            }
+
+            .frame-wrapper {
+                border-width: 8px;
+                padding: 10px;
+            }
+
+            .inner-border {
+                padding: 12px 8px;
+            }
+
+            .title-main { font-size: 1.25rem; }
+            .title-sub { font-size: 1.1rem; }
+            .title-dates { font-size: 1.05rem; }
+            .day-header { font-size: 1.1rem; }
+            .event-row { font-size: 0.95rem; }
+            .time-tag { min-width: 100px; }
+            .footer-text { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <div class="frame-wrapper">
+            <div class="inner-border">
+                
+                <!-- HEADER SECTION -->
+                <header class="header-section text-center">
+                    <h1 class="title-main color-red">Ιερός Μητροπολιτικός Ναός</h1>
+                    <h2 class="title-main color-red">Εισοδίων της Θεοτόκου Λιβαδειάς</h2>
+                    <h3 class="title-sub color-blue">Πρόγραμμα Ιερών Ακολουθιών</h3>
+                    <h4 class="title-dates color-blue">από 19 έως 25 Οκτωβρίου 2026</h4>
+                    
+                    <!-- Decorative Vine Ornament Divider -->
+                    <div class="divider">
+                        <svg viewBox="0 0 200 24">
+                            <path d="M 100,12 C 80,4 60,20 40,12 C 35,10 30,5 20,12 C 10,19 5,12 0,12 M 100,12 C 120,4 140,20 160,12 C 165,10 170,5 180,12 C 190,19 195,12 200,12" fill="none" stroke="#192a56" stroke-width="2"/>
+                            <circle cx="100" cy="12" r="4" fill="#192a56"/>
+                            <circle cx="80" cy="12" r="2.5" fill="#192a56"/>
+                            <circle cx="120" cy="12" r="2.5" fill="#192a56"/>
+                            <path d="M 90,8 Q 95,2 100,8 Q 105,2 110,8" fill="none" stroke="#192a56" stroke-width="1.5"/>
+                            <path d="M 90,16 Q 95,22 100,16 Q 105,22 110,16" fill="none" stroke="#192a56" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                </header>
+
+                <!-- SCHEDULE SECTION -->
+                <main>
+                    <!-- Δευτέρα -->
+                    <section class="day-group text-center">
+                        <h5 class="day-header color-red">Δευτέρα 19 Οκτωβρίου 2026</h5>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Εσπέρας 5:30μμ</span>
+                            <span class="event-desc color-blue">Ιερά Παράκλησις εις τους Αγίους Αναργύρους.</span>
+                            <br>
+                            <span class="location color-blue">(Ιερό Παρεκκλήσιο Αγίων Αναργύρων)</span>
+                        </div>
+                    </section>
+
+                    <!-- Τρίτη -->
+                    <section class="day-group text-center">
+                        <h5 class="day-header color-red">
+                            Τρίτη 20 Οκτωβρίου 2026
+                            <span class="saint">Αγίου Αρτεμίου</span>
+                        </h5>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Πρωί: 7:15πμ</span>
+                            <span class="event-desc color-blue">Όρθρος - Θεία Λειτουργία. (Ιερός Μητροπολιτικός Ναός).</span>
+                        </div>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Εσπέρας 5:30μμ</span>
+                            <span class="event-desc color-blue">Ιερά Παράκλησις εις την Υπεραγία Θεοτόκο.</span>
+                            <br>
+                            <span class="location color-blue">(Ιερό Παρεκκλήσιο Παλαιάς Παναγίας)</span>
+                        </div>
+                    </section>
+
+                    <!-- Τετάρτη -->
+                    <section class="day-group text-center">
+                        <h5 class="day-header color-red">Τετάρτη 21 Οκτωβρίου 2026</h5>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Πρωί: 7:15πμ</span>
+                            <span class="event-desc color-blue">Όρθρος - Θεία Λειτουργία.(Ιερό Παρεκκλήσιο Αγίου Νικολάου)</span>
+                        </div>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Εσπέρας 5:30μμ</span>
+                            <span class="event-desc color-blue">Ιερά Παράκλησις εις τον Όσιο Ιάκωβο Τσαλίκη.</span>
+                            <br>
+                            <span class="location color-blue">(Ιερός Μητροπολιτικός Ναός).</span>
+                        </div>
+                    </section>
+
+                    <!-- Πέμπτη -->
+                    <section class="day-group text-center">
+                        <h5 class="day-header color-red">Πέμπτη 22 Οκτωβρίου 2026</h5>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Εσπέρας 5:30μμ</span>
+                            <span class="event-desc color-blue">Ιερά Παράκλησις εις τον Άγιο Νικόλαο.</span>
+                            <br>
+                            <span class="location color-blue">(Ιερό Παρεκκλήσιο Αγίου Νικολάου)</span>
+                        </div>
+                    </section>
+
+                    <!-- Παρασκευή -->
+                    <section class="day-group text-center">
+                        <h5 class="day-header color-red">
+                            Παρασκευή 23 Οκτωβρίου 2026
+                            <span class="saint">Αγίου Ιακώβου του Αδελφοθέου</span>
+                        </h5>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Πρωί: 7:15πμ</span>
+                            <span class="event-desc color-blue">Όρθρος - Θεία Λειτουργία.(Ιερός Μητροπολιτικός Ναός)</span>
+                        </div>
+                    </section>
+
+                    <!-- Σάββατο -->
+                    <section class="day-group text-center">
+                        <h5 class="day-header color-red">Σάββατο 24 Οκτωβρίου 2026</h5>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Πρωί: 7:15πμ</span>
+                            <span class="event-desc color-blue">Όρθρος - Θεία Λειτουργία.(Ιερός Μητροπολιτικός Ναός)</span>
+                        </div>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Εσπέρας 5:30μμ</span>
+                            <span class="event-desc color-blue">Εσπερινός(Ιερός Μητροπολιτικός Ναός)</span>
+                        </div>
+                    </section>
+
+                    <!-- Κυριακή -->
+                    <section class="day-group text-center">
+                        <h5 class="day-header color-red">Κυριακή 25 Οκτωβρίου 2026</h5>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Πρωί: 7:15πμ</span>
+                            <span class="event-desc color-blue">Όρθρος - Λειτουργία. (Ιερός Μητροπολιτικός Ναός)</span>
+                        </div>
+                        <div class="event-row">
+                            <span class="time-tag color-green">Εσπέρας 7:00μμ</span>
+                            <span class="event-desc color-blue">Εσπερινός Αγίου Δημητρίου (Ιερό Παρεκκλήσιο Αγίου Δημητρίου)</span>
+                        </div>
+                    </section>
+                </main>
+
+                <!-- FOOTER SECTION -->
+                <footer class="footer-section">
+                    <p class="footer-text color-green">Εκ του Ιερού Ναού</p>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

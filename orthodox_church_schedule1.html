@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Πρόγραμμα Ιερών Ακολουθιών</title>
+    <!-- Google Fonts for authentic Greek Byzantine & Calligraphic typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Marcellus&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Modern Reset & Page Canvas */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #1e1e24;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 30px 15px;
+            font-family: 'GFS Didot', 'Philosopher', 'Marcellus', serif;
+            color: #1a1a1a;
+        }
+
+        /* Top Controls (Print Button) */
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #8c1010 0%, #5a0a0a 100%);
+            color: #fff;
+            border: 1px solid #d4af37;
+            padding: 10px 24px;
+            font-size: 1rem;
+            font-family: 'Philosopher', serif;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+            background: linear-gradient(135deg, #a31414 0%, #6e0c0c 100%);
+        }
+
+        /* Poster Outer Parchment Box */
+        .poster-container {
+            width: 100%;
+            max-width: 820px;
+            background-color: #faeed1;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 252, 235, 0.8) 0%, rgba(232, 212, 162, 0.5) 100%),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border-radius: 4px;
+            overflow: hidden;
+            padding: 12px;
+        }
+
+        /* SVG Decorative Border Container */
+        .border-frame {
+            position: relative;
+            border: 45px solid transparent;
+            /* Inline SVG with rich Byzantine vine & rosette repeating scroll motif */
+            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cdefs%3E%3Cpattern id='vines' width='120' height='120' patternUnits='userSpaceOnUse'%3E%3Crect width='120' height='120' fill='%23faeed1'/%3E%3C!-- Outer frame lines --%3E%3Cpath d='M0,4 L120,4 M0,116 L120,116 M4,0 L4,120 M116,0 L116,120' stroke='%23111' stroke-width='2'/%3E%3Cpath d='M8,8 L112,8 M8,112 L112,112 M8,8 L8,112 M112,8 L112,112' stroke='%23111' stroke-width='1'/%3E%3C!-- Byzantine Interlace Vine Motif --%3E%3Cg fill='none' stroke='%23111' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3C!-- Main S-Curves --%3E%3Cpath d='M 0,60 C 20,20 40,20 60,60 C 80,100 100,100 120,60' /%3E%3Cpath d='M 0,60 C 20,100 40,100 60,60 C 80,20 100,20 120,60' /%3E%3C!-- Leaf Loops and Spirals --%3E%3Cpath d='M 30,40 C 20,25 35,15 40,30 C 45,45 25,45 30,40 Z' fill='%23111' opacity='0.15'/%3E%3Cpath d='M 30,40 C 20,25 35,15 40,30 C 45,45 25,45 30,40 Z'/%3E%3Cpath d='M 90,80 C 80,65 95,55 100,70 C 105,85 85,85 90,80 Z' fill='%23111' opacity='0.15'/%3E%3Cpath d='M 90,80 C 80,65 95,55 100,70 C 105,85 85,85 90,80 Z'/%3E%3Cpath d='M 30,80 C 20,95 35,105 40,90 C 45,75 25,75 30,80 Z' fill='%23111' opacity='0.15'/%3E%3Cpath d='M 30,80 C 20,95 35,105 40,90 C 45,75 25,75 30,80 Z'/%3E%3Cpath d='M 90,40 C 80,25 95,15 100,30 C 105,45 85,45 90,40 Z' fill='%23111' opacity='0.15'/%3E%3Cpath d='M 90,40 C 80,25 95,15 100,30 C 105,45 85,45 90,40 Z'/%3E%3C!-- Central Rosette Flower --%3E%3Ccircle cx='60' cy='60' r='10' fill='%23faeed1' stroke='%23111' stroke-width='2'/%3E%3Ccircle cx='60' cy='60' r='4' fill='%23111'/%3E%3Cpath d='M 60,46 L 60,50 M 60,70 L 60,74 M 46,60 L 50,60 M 70,60 L 74,60' stroke-width='2'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect width='120' height='120' fill='url(%23vines)'/%3E%3C/svg%3E") 45 repeat stretch;
+            background-clip: padding-box;
+        }
+
+        /* Corner Ornament Overlays for exact poster fidelity */
+        .corner-ornament {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .corner-tl { top: -42px; left: -42px; }
+        .corner-tr { top: -42px; right: -42px; transform: rotate(90deg); }
+        .corner-bl { bottom: -42px; left: -42px; transform: rotate(270deg); }
+        .corner-br { bottom: -42px; right: -42px; transform: rotate(180deg); }
+
+        /* Inner Content Area */
+        .content-inner {
+            padding: 20px 25px;
+            border: 1.5px solid #1a1a1a;
+            position: relative;
+        }
+
+        /* Typography & Color Styles matching the original scan */
+        .color-red {
+            color: #8B1818;
+        }
+
+        .color-blue {
+            color: #1B2A4A;
+        }
+
+        .color-green {
+            color: #2D5016;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header Section */
+        .header {
+            margin-bottom: 18px;
+        }
+
+        .header h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: 0.2px;
+        }
+
+        .header h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-top: 4px;
+        }
+
+        .header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-top: 2px;
+        }
+
+        /* Header Divider Ornament */
+        .divider-wrapper {
+            margin: 8px 0 14px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .divider-svg {
+            width: 220px;
+            height: 24px;
+        }
+
+        /* Schedule Grid / Daily Entries */
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .day-block {
+            text-align: center;
+        }
+
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            line-height: 1.3;
+            margin-bottom: 3px;
+        }
+
+        .day-title .commemoration {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .service-line {
+            font-size: 1.12rem;
+            line-height: 1.4;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .time-label {
+            font-weight: 700;
+            font-style: italic;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .service-name {
+            font-weight: 700;
+        }
+
+        .chapel-name {
+            font-weight: 700;
+        }
+
+        /* Footer Note */
+        .footer {
+            margin-top: 22px;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .footer-note {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        /* Print Optimizations */
+        @media print {
+            body {
+                background: none !important;
+                padding: 0 !important;
+            }
+
+            .controls {
+                display: none !important;
+            }
+
+            .poster-container {
+                box-shadow: none !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                border-radius: 0 !important;
+                background-color: #fff !important;
+            }
+
+            .border-frame {
+                border-width: 38px !important;
+            }
+        }
+
+        /* Mobile Viewport Adjustments */
+        @media (max-width: 640px) {
+            body {
+                padding: 10px 5px;
+            }
+
+            .border-frame {
+                border-width: 22px !important;
+            }
+
+            .corner-ornament {
+                width: 32px;
+                height: 32px;
+            }
+
+            .corner-tl { top: -20px; left: -20px; }
+            .corner-tr { top: -20px; right: -20px; }
+            .corner-bl { bottom: -20px; left: -20px; }
+            .corner-br { bottom: -20px; right: -20px; }
+
+            .content-inner {
+                padding: 12px 8px;
+            }
+
+            .header h1 { font-size: 1.25rem; }
+            .header h2 { font-size: 1.1rem; }
+            .header h3 { font-size: 1.0rem; }
+            .day-title { font-size: 1.1rem; }
+            .day-title .commemoration { font-size: 1.0rem; }
+            .service-line { font-size: 0.95rem; }
+            .footer-note { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Printable Control Header -->
+    <div class="controls">
+        <button class="btn-print" onclick="window.print()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            Εκτύπωση Προγράμματος
+        </button>
+    </div>
+
+    <!-- Main Parchment Document Box -->
+    <div class="poster-container">
+        
+        <!-- Outer SVG Vine Pattern Border -->
+        <div class="border-frame">
+
+            <!-- Four Corner Byzantine Rosette Overlays -->
+            <svg class="corner-ornament corner-tl" viewBox="0 0 60 60">
+                <rect width="60" height="60" fill="#faeed1"/>
+                <path d="M0,0 L60,0 L60,60 L0,60 Z" fill="none" stroke="#111" stroke-width="4"/>
+                <circle cx="30" cy="30" r="22" fill="none" stroke="#111" stroke-width="2"/>
+                <circle cx="30" cy="30" r="14" fill="none" stroke="#111" stroke-width="1.5"/>
+                <circle cx="30" cy="30" r="5" fill="#111"/>
+                <path d="M30,8 L30,52 M8,30 L52,30 M14,14 L46,46 M14,46 L46,14" stroke="#111" stroke-width="1.5"/>
+            </svg>
+            <svg class="corner-ornament corner-tr" viewBox="0 0 60 60">
+                <rect width="60" height="60" fill="#faeed1"/>
+                <path d="M0,0 L60,0 L60,60 L0,60 Z" fill="none" stroke="#111" stroke-width="4"/>
+                <circle cx="30" cy="30" r="22" fill="none" stroke="#111" stroke-width="2"/>
+                <circle cx="30" cy="30" r="14" fill="none" stroke="#111" stroke-width="1.5"/>
+                <circle cx="30" cy="30" r="5" fill="#111"/>
+                <path d="M30,8 L30,52 M8,30 L52,30 M14,14 L46,46 M14,46 L46,14" stroke="#111" stroke-width="1.5"/>
+            </svg>
+            <svg class="corner-ornament corner-bl" viewBox="0 0 60 60">
+                <rect width="60" height="60" fill="#faeed1"/>
+                <path d="M0,0 L60,0 L60,60 L0,60 Z" fill="none" stroke="#111" stroke-width="4"/>
+                <circle cx="30" cy="30" r="22" fill="none" stroke="#111" stroke-width="2"/>
+                <circle cx="30" cy="30" r="14" fill="none" stroke="#111" stroke-width="1.5"/>
+                <circle cx="30" cy="30" r="5" fill="#111"/>
+                <path d="M30,8 L30,52 M8,30 L52,30 M14,14 L46,46 M14,46 L46,14" stroke="#111" stroke-width="1.5"/>
+            </svg>
+            <svg class="corner-ornament corner-br" viewBox="0 0 60 60">
+                <rect width="60" height="60" fill="#faeed1"/>
+                <path d="M0,0 L60,0 L60,60 L0,60 Z" fill="none" stroke="#111" stroke-width="4"/>
+                <circle cx="30" cy="30" r="22" fill="none" stroke="#111" stroke-width="2"/>
+                <circle cx="30" cy="30" r="14" fill="none" stroke="#111" stroke-width="1.5"/>
+                <circle cx="30" cy="30" r="5" fill="#111"/>
+                <path d="M30,8 L30,52 M8,30 L52,30 M14,14 L46,46 M14,46 L46,14" stroke="#111" stroke-width="1.5"/>
+            </svg>
+
+            <!-- Inner Content Frame -->
+            <div class="content-inner">
+                
+                <!-- HEADER SECTION -->
+                <header class="header text-center">
+                    <h1 class="color-red">Ιερός Μητροπολιτικός Ναός</h1>
+                    <h1 class="color-red">Εισοδίων της Θεοτόκου Λιβαδειάς</h1>
+                    <h2 class="color-blue">Πρόγραμμα Ιερών Ακολουθιών</h2>
+                    <h3 class="color-blue">από 19 έως 25 Οκτωβρίου 2026</h3>
+
+                    <!-- Byzantine Fleur-de-lis / Scroll Ornament Divider -->
+                    <div class="divider-wrapper">
+                        <svg class="divider-svg" viewBox="0 0 220 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 14 C 40 14, 60 2, 85 14 C 95 19, 100 24, 110 14 C 120 24, 125 19, 135 14 C 160 2, 180 14, 210 14" stroke="#1B2A4A" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M 110 4 L 110 24 M 100 14 L 120 14" stroke="#1B2A4A" stroke-width="2.5"/>
+                            <circle cx="110" cy="14" r="5" fill="#faeed1" stroke="#1B2A4A" stroke-width="2"/>
+                            <path d="M 85 14 C 80 8, 70 8, 75 14 C 80 20, 90 20, 85 14 Z" fill="#1B2A4A"/>
+                            <path d="M 135 14 C 130 8, 120 8, 125 14 C 130 20, 140 20, 135 14 Z" fill="#1B2A4A"/>
+                            <circle cx="30" cy="14" r="3" fill="#1B2A4A"/>
+                            <circle cx="190" cy="14" r="3" fill="#1B2A4A"/>
+                        </svg>
+                    </div>
+                </header>
+
+                <!-- SCHEDULE BODY -->
+                <main class="schedule">
+
+                    <!-- ΔΕΥΤΕΡΑ -->
+                    <section class="day-block">
+                        <h4 class="day-title color-red">Δευτέρα 19 Οκτωβρίου 2026</h4>
+                        <div class="service-line">
+                            <span class="time-label color-green">Εσπέρας 5:30μμ</span>
+                            <span class="service-name color-blue">Ιερά Παράκλησις εις τους Αγίους Αναργύρους.</span>
+                            <br>
+                            <span class="chapel-name color-blue">(Ιερό Παρεκκλήσιο Αγίων Αναργύρων)</span>
+                        </div>
+                    </section>
+
+                    <!-- ΤΡΙΤΗ -->
+                    <section class="day-block">
+                        <h4 class="day-title color-red">
+                            Τρίτη 20 Οκτωβρίου 2026
+                            <span class="commemoration">Αγίου Αρτεμίου</span>
+                        </h4>
+                        <div class="service-line">
+                            <span class="time-label color-green">Πρωί: 7:15πμ</span>
+                            <span class="service-name color-blue">Όρθρος - Θεία Λειτουργία. (Ιερός Μητροπολιτικός Ναός).</span>
+                        </div>
+                        <div class="service-line">
+                            <span class="time-label color-green">Εσπέρας 5:30μμ</span>
+                            <span class="service-name color-blue">Ιερά Παράκλησις εις την Υπεραγία Θεοτόκο.</span>
+                            <br>
+                            <span class="chapel-name color-blue">(Ιερό Παρεκκλήσιο Παλαιάς Παναγίας)</span>
+                        </div>
+                    </section>
+
+                    <!-- ΤΕΤΑΡΤΗ -->
+                    <section class="day-block">
+                        <h4 class="day-title color-red">Τετάρτη 21 Οκτωβρίου 2026</h4>
+                        <div class="service-line">
+                            <span class="time-label color-green">Πρωί: 7:15πμ</span>
+                            <span class="service-name color-blue">Όρθρος - Θεία Λειτουργία.(Ιερό Παρεκκλήσιο Αγίου Νικολάου)</span>
+                        </div>
+                        <div class="service-line">
+                            <span class="time-label color-green">Εσπέρας 5:30μμ</span>
+                            <span class="service-name color-blue">Ιερά Παράκλησις εις τον Όσιο Ιάκωβο Τσαλίκη.</span>
+                            <br>
+                            <span class="chapel-name color-blue">(Ιερός Μητροπολιτικός Ναός).</span>
+                        </div>
+                    </section>
+
+                    <!-- ΠΕΜΠΤΗ -->
+                    <section class="day-block">
+                        <h4 class="day-title color-red">Πέμπτη 22 Οκτωβρίου 2026</h4>
+                        <div class="service-line">
+                            <span class="time-label color-green">Εσπέρας 5:30μμ</span>
+                            <span class="service-name color-blue">Ιερά Παράκλησις εις τον Άγιο Νικόλαο.</span>
+                            <br>
+                            <span class="chapel-name color-blue">(Ιερό Παρεκκλήσιο Αγίου Νικολάου)</span>
+                        </div>
+                    </section>
+
+                    <!-- ΠΑΡΑΣΚΕΥΗ -->
+                    <section class="day-block">
+                        <h4 class="day-title color-red">
+                            Παρασκευή 23 Οκτωβρίου 2026
+                            <span class="commemoration">Αγίου Ιακώβου του Αδελφοθέου</span>
+                        </h4>
+                        <div class="service-line">
+                            <span class="time-label color-green">Πρωί: 7:15πμ</span>
+                            <span class="service-name color-blue">Όρθρος - Θεία Λειτουργία.(Ιερός Μητροπολιτικός Ναός)</span>
+                        </div>
+                    </section>
+
+                    <!-- ΣΑΒΒΑΤΟ -->
+                    <section class="day-block">
+                        <h4 class="day-title color-red">Σάββατο 24 Οκτωβρίου 2026</h4>
+                        <div class="service-line">
+                            <span class="time-label color-green">Πρωί: 7:15πμ</span>
+                            <span class="service-name color-blue">Όρθρος - Θεία Λειτουργία.(Ιερός Μητροπολιτικός Ναός)</span>
+                        </div>
+                        <div class="service-line">
+                            <span class="time-label color-green">Εσπέρας 5:30μμ</span>
+                            <span class="service-name color-blue">Εσπερινός(Ιερός Μητροπολιτικός Ναός)</span>
+                        </div>
+                    </section>
+
+                    <!-- ΚΥΡΙΑΚΗ -->
+                    <section class="day-block">
+                        <h4 class="day-title color-red">Κυριακή 25 Οκτωβρίου 2026</h4>
+                        <div class="service-line">
+                            <span class="time-label color-green">Πρωί: 7:15πμ</span>
+                            <span class="service-name color-blue">Όρθρος - Λειτουργία. (Ιερός Μητροπολιτικός Ναός)</span>
+                        </div>
+                        <div class="service-line">
+                            <span class="time-label color-green">Εσπέρας 7:00μμ</span>
+                            <span class="service-name color-blue">Εσπερινός Αγίου Δημητρίου (Ιερό Παρεκκλήσιο Αγίου Δημητρίου)</span>
+                        </div>
+                    </section>
+
+                </main>
+
+                <!-- FOOTER -->
+                <footer class="footer">
+                    <p class="footer-note color-green">Εκ του Ιερού Ναού</p>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
