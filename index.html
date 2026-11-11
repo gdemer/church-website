@@ -16,36 +16,37 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <header>
-      <h1>Ιερός Ναός Αγίου Παντελεήμονος Τραχώνων</h1>
-    </header>
+    <div class="top-bar">
+      <header>
+        <h1>Ιερός Ναός Αγίου Παντελεήμονος Τραχώνων</h1>
+      </header>
 
-    <nav>
-      <button
-        class="nav-toggle"
-        id="nav-toggle"
-        aria-expanded="false"
-        aria-controls="nav-menu"
-        aria-label="Άνοιγμα μενού"
-      >
-        &#9776;
-      </button>
-      <ul id="nav-menu">
-        <li><a href="#home">Αρχική</a></li>
-        <li><a href="#schedule">Πρόγραμμα</a></li>
-        <li><a href="#announcements">Ανακοινώσεις</a></li>
-        <li><a href="#about">Ο Ναός</a></li>
-        <li><a href="#theology">Θεολογία</a></li>
-        <li><a href="#gallery">Φωτογραφίες</a></li>
-        <li><a href="#location">Χάρτης</a></li>
-        <li><a href="#contact-form">Φόρμα</a></li>
-        <li><a href="#contact">Επικοινωνία</a></li>
-      </ul>
-    </nav>
-
+      <nav>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="Άνοιγμα μενού"
+        >
+          &#9776;
+        </button>
+        <ul id="nav-menu">
+          <li><a href="#home">Αρχική</a></li>
+          <li><a href="#schedule">Πρόγραμμα</a></li>
+          <li><a href="#announcements">Ανακοινώσεις</a></li>
+          <li><a href="#about">Ο Ναός</a></li>
+          <li><a href="#theology">Θεολογία</a></li>
+          <li><a href="#gallery">Φωτογραφίες</a></li>
+          <li><a href="#location">Χάρτης</a></li>
+          <li><a href="#contact-form">Φόρμα</a></li>
+          <li><a href="#contact">Επικοινωνία</a></li>
+        </ul>
+      </nav>
+    </div>
     <main>
-      <section id="home">
-        <h2>Καλώς ήρθατε</h2>
+      <details id="home" open>
+        <summary><h2>Καλώς ήρθατε</h2></summary>
 
         <div class="home-layout">
           <div class="home-photo">
@@ -73,17 +74,17 @@
             </div>
           </aside>
         </div>
-      </section>
+      </details>
 
-      <section id="schedule">
-        <h2>Πρόγραμμα Ακολουθιών</h2>
+      <details id="schedule">
+        <summary><h2>Πρόγραμμα Ακολουθιών</h2></summary>
         <div class="schedule-grid" id="schedule-grid">
           <!-- Οι κάρτες θα δημιουργηθούν εδώ δυναμικά από το js/main.js -->
         </div>
-      </section>
+      </details>
 
-      <section id="about">
-        <h2>Ανακοινώσεις</h2>
+      <details id="announcements">
+        <summary><h2>Ανακοινώσεις</h2></summary>
 
         <div class="poster">
           <div class="poster-border">
@@ -110,9 +111,9 @@
             </div>
           </div>
         </div>
-      </section>
-      <section id="about">
-        <h2>Ο Ναός</h2>
+      </details>
+      <details id="about">
+        <summary><h2>Ο Ναός</h2></summary>
 
         <main class="article-body">
           <h2 class="entry-title">Ιερός Ναός Αγίου Παντελεήμονος Τραχώνων</h2>
@@ -187,24 +188,24 @@
 -->
 
         <div class="home-layout"></div>
-      </section>
+      </details>
 
-      <section id="theology">
-        <h2>Θεολογία και Πίστη</h2>
+      <details id="theology">
+        <summary><h2>Θεολογία και Πίστη</h2></summary>
         <div class="theology-carousel" id="theology-carousel">
           <!-- Οι κάρτες θα δημιουργηθούν εδώ δυναμικά από το js/main.js -->
         </div>
-      </section>
+      </details>
 
-      <section id="gallery">
-        <h2>Φωτογραφίες</h2>
+      <details id="gallery">
+        <summary><h2>Φωτογραφίες</h2></summary>
         <div class="gallery-grid" id="gallery-grid">
           <!-- Οι φωτογραφίες θα δημιουργηθούν εδώ δυναμικά από το js/main.js -->
         </div>
-      </section>
+      </details>
 
-      <section id="location">
-        <h2>Πώς θα μας βρείτε</h2>
+      <details id="location">
+        <summary><h2>Πώς θα μας βρείτε</h2></summary>
         <div class="map-wrapper">
           <iframe
             src="https://www.google.com/maps?q=Ρόδου+2,+175+56,Ἅλιμος&output=embed"
@@ -213,10 +214,10 @@
           >
           </iframe>
         </div>
-      </section>
+      </details>
 
-      <section id="contact-form">
-        <h2>Επικοινωνήστε μαζί μας</h2>
+      <details id="contact-form">
+        <summary><h2>Επικοινωνήστε μαζί μας</h2></summary>
         <form
           id="contact-form-el"
           action="https://formspree.io/f/xbgrognn"
@@ -241,7 +242,7 @@
 
           <p id="form-status"></p>
         </form>
-      </section>
+      </details>
     </main>
 
     <footer id="contact">

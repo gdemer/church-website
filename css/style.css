@@ -7,7 +7,7 @@
 }
 @font-face {
   font-family: "GFS Ambrosia";
-  src: url("../fonts/GFSAmbrosia.ttf") format("truetype");
+  src: url("../fonts/1GFSAmbrosia.ttf") format("truetype");
 }
 
 
@@ -41,6 +41,10 @@
      --font-heading: Georgia, 'Times New Roman', serif;   /* ← άλλαξε εδώ, όχι πια GFS Theokritos */
     --font-body: 'Noto Serif', Georgia, serif;
 }
+html {
+    scroll-behavior: smooth; /* Κάνει το scroll ομαλό */
+    scroll-padding-top: 100px; /* Προσαρμόστε το ανάλογα με το ύψος του .top-bar */
+}
 
 /* ============================
    3. ΓΕΝΙΚΟ STYLING ΣΩΜΑΤΟΣ
@@ -51,6 +55,62 @@ body {
     background-color: var(--color-bg);
     line-height: 1.6;
 }
+/* Εμφάνιση του πλαισίου κάθε ενότητας */
+details {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* Ο τίτλος που πατάει ο χρήστης */
+summary {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    list-style: none; /* Κρύβει το προεπιλεγμένο τρίγωνο */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Αφαίρεση προεπιλεγμένου βέλους σε Safari/Chrome */
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+/* Προσθήκη δικού μας συμβόλου (+) που γίνεται (-) όταν ανοίγει */
+summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+details[open] summary::after {
+    content: '−';
+}
+
+/* Το περιεχόμενο μέσα στο accordion */
+.accordion-content {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #ffffff; /* Αλλάξτε το στο χρώμα φόντου που έχετε */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Προαιρετική διακριτική σκιά */
+}
+
 
 /* ============================
    4. HEADER

@@ -159,6 +159,45 @@ const FADE_OUT_DURATION = 800; // ms
 
 let isMusicPlaying = false; // η ΜΟΝΑΔΙΚΗ πηγή αλήθειας για την κατάσταση -- όχι το .paused
 
+document.querySelectorAll("#nav-menu a").forEach((link) => {
+  link.addEventListener("click", function (e) {
+    const targetId = this.getAttribute("href").substring(1);
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      // Ακυρώνουμε το απότομο προεπιλεγμένο άλμα του browser
+      e.preventDefault();
+
+      // 1. Αν είναι <details>, το ανοίγουμε αυτόματα
+      if (targetElement.tagName === "DETAILS") {
+        targetElement.open = true;
+      }
+
+      // 2. Αν πατήθηκε η "Αρχική", πάμε στην απόλυτη κορυφή της σελίδας
+      if (targetId === "home") {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        return; // Σταματάμε εδώ για την Αρχική
+      }
+
+      // 3. Για όλες τις άλλες ενότητες:
+      // Υπολογίζουμε το ακριβές ύψος του .top-bar + 15px αέρα
+      const topBarHeight = document.querySelector(".top-bar").offsetHeight;
+      const elementPosition =
+        targetElement.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - topBarHeight - 15;
+
+      // Κάνουμε ομαλό scroll ακριβώς πάνω από τον τίτλο της ενότητας
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  });
+});
+
 function fadeIn(audioEl) {
   audioEl.volume = 0;
   const speed = 0.02;
