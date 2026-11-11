@@ -169,6 +169,13 @@ nav a {
     transition: background-color 0.2s ease;
 }
 
+/* 2. Πιο λεπτή μπάρα τίτλου "Καλώς ήρθατε" */
+#home summary {
+    padding: 8px 15px;
+}
+#home summary h2 {
+    font-size: 1.15rem;
+}
 nav a:hover {
     background-color: rgba(0, 0, 0, 0.15);
 }
@@ -180,6 +187,9 @@ main {
     max-width: 1140px;   /* από 800px -- πιο πλατύ, ταιριάζει σε layout με εικόνες/grids */
     margin: 0 auto;             /* κεντράρει το main οριζόντια */
     padding: 2rem 1rem;
+  /* Προσθήκη μικρού περιθωρίου πάνω */
+    margin-top: 10px;
+    padding-top: 0;
 }
 
 section {
@@ -197,34 +207,116 @@ section h2 {
 /* ============================
    6d. HOME LAYOUT: φωτογραφία + sidebar (Μάθημα 15)
    ============================ */
-.home-layout {
+.home-layout0 {
     display: grid;
     grid-template-columns: 3fr 1fr;   /* ήταν 2fr 1fr -- τώρα ~75%/25% αντί για ~67%/33% */
     gap: 1.5rem;
     align-items: start;               /* οι στήλες δεν "τεντώνονται" σε ίσο ύψος -- κρατούν το φυσικό τους */
 }
 
-.home-photo img {
+/* 1. Διάταξη δύο στηλών (Φωτογραφία αριστερά, Ημερολόγιο/Νέα δεξιά) */
+.home-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px; /* Η φωτογραφία παίρνει τον διαθέσιμο χώρο, το sidebar 300px */
+    gap: 20px;
+    align-items: stretch; /* Κάνει τις δύο στήλες να έχουν το ίδιο ακριβώς ύψος */
+}
+
+.home-photo0 img {
     width: 100%;
     aspect-ratio: 4 / 3;    /* πλάτος:ύψος -- μικρότερος 2ος αριθμός = ΨΗΛΟΤΕΡΗ εικόνα */
     object-fit: cover;
     border-radius: 6px;
     display: block;
 }
+/* 2. Πλαίσιο φωτογραφίας */
+.home-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4; /* Διακριτικό φόντο αν περισσέψει ελάχιστος χώρος */
+    border-radius: 8px;
+    overflow: hidden;
+}
+/* 3. Η ίδια η φωτογραφία - Εμφανίζεται ΟΛΟΚΛΗΡΗ (τρούλος + σκαλοπάτια) */
+.home-photo0 img {
+    width: 100%;
+    height: auto;
+    max-height: 540px; /* Αυξομειώστε αυτό το νούμερο (π.χ. 500px - 580px) για το τέλειο ύψος στην οθόνη σας */
+    object-fit: contain; /* Εγγυάται ότι ΔΕΝ θα κοπούν τα σκαλοπάτια ούτε ο τρούλος */
+    display: block;
+}
 
-.home-sidebar {
+/* 3. Αυτόματος υπολογισμός ύψους φωτογραφίας ώστε να χωράει ΟΛΟΚΛΗΡΗ στην οθόνη */
+.home-photo img {
+    /* 100vh είναι όλο το ύψος της οθόνης. Αφαιρούμε ~185px που πιάνουν οι μπάρες από πάνω */
+    height: calc(100vh - 185px); 
+    min-height: 320px; /* Για να μην μικρύνει υπερβολικά σε πολύ μικρές οθόνες */
+    max-height: 550px; /* Για να μην μεγαλώσει υπερβολικά σε τεράστιες οθόνες */
+    width: auto;
+    display: block;
+    border-radius: 8px;
+}
+/* Μείωση εσωτερικού κενού μόνο στην Αρχική */
+#home .accordion-content {
+    padding: 12px 15px;
+}
+
+/* Περιορισμός του ύψους της φωτογραφίας του Ναού */
+#home img {
+    width: auto; /* Επιτρέπει στην εικόνα να κρατήσει τις πραγματικές της αναλογίες */
+    max-width: 100%; /* Δεν την αφήνει να βγει έξω από το πλαίσιο */
+    max-height: 550px; /* Προσαρμόστε το ύψος όπως σας βολεύει */
+    display: block;
+    margin: 0 auto; /* Κεντράρει την εικόνα οριζόντια */
+    border-radius: 6px;
+    object-position: center bottom; /* Εστιάζει στο κάτω μέρος (τα σκαλοπάτια) */
+   
+}
+
+
+
+/* Προαιρετικά: Λίγο πιο μαζεμένο το πλαίσιο της ημερομηνίας δεξιά */
+#home .calendar-box, 
+#home aside > div {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+.home-sidebar0 {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
+/* 4. Στήλη δεξιά (Ημερολόγιο + Τελευταία Νέα) */
+.home-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+}
 .news-box {
     background-color: white;
     border: 1px solid #e0dcd0;
     border-radius: 6px;
     padding: 1.25rem;
+    flex-grow: 1;
 }
-
+/* Κάνει το κουτί "Τελευταία Νέα" να γεμίζει τον υπόλοιπο χώρο μέχρι κάτω */
+.news-box0 {
+    flex-grow: 1;
+}
+/* 5. Προσαρμογή για κινητά και tablet */
+@media (max-width: 768px) {
+    .home-layout {
+        grid-template-columns: 1fr; /* Μία στήλη κάτω από την άλλη */
+    }
+    .home-photo img {
+        max-height: 400px;
+    }
+}
 .news-box h3 {
     font-family: var(--font-heading);
     color: var(--color-primary);
@@ -249,6 +341,7 @@ section h2 {
 .news-list a {
     color: var(--color-primary);
     font-weight: bold;
+    font-size: 0.7rem;
     text-decoration: none;
 }
 
@@ -1028,4 +1121,266 @@ stroke='%23d8bd70' stroke-width='2' fill='none' stroke-linejoin='miter'/>\
             font-weight: bold;
         }
     
-  
+  /* 1. Κλειδώνει όλη τη διάταξη (φωτογραφία + δεξιά στήλη) ώστε να χωράει στην οθόνη */
+.home-layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 15px;
+    height: calc(100vh - 175px); /* Πιάνει ακριβώς τον διαθέσιμο χώρο της οθόνης */
+    min-height: 350px;
+    max-height: 500px; /* Ασφάλεια για μεγάλες οθόνες */
+    padding: 10px 15px; /* Μικρό εσωτερικό περιθώριο */
+    box-sizing: border-box;
+}
+
+/* 2. Αφαιρεί περιττά κενά γύρω από τη φωτογραφία */
+.home-photo {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 3. Η φωτογραφία παίρνει ακριβώς το 100% του ύψους του .home-layout */
+.home-photo img {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 6px;
+}
+/* 4. Σωστή κατανομή χώρου στη δεξιά στήλη */
+.home-sidebar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Εμποδίζει το ημερολόγιο να κοπεί ή να κρύψει τη γιορτή */
+.calendar-card {
+    flex-shrink: 0; 
+}
+
+.calendar-header {
+    padding: 6px 10px;
+    font-size: 1rem;
+}
+
+.calendar-body {
+    padding: 8px 10px;
+}
+
+.calendar-date-num {
+    font-size: 2rem;
+    line-height: 1;
+    margin: 2px 0;
+}
+
+.calendar-month, 
+.calendar-year {
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+
+.calendar-feast {
+    margin-top: 6px;
+    padding-top: 6px;
+    font-size: 0.85rem;
+    line-height: 1.25;
+}
+
+/* Το κουτί "Τελευταία Νέα" παίρνει τον υπόλοιπο χώρο και κάνει scroll εσωτερικά αν έχει πολλά νέα */
+.news-box {
+    flex: 1;
+    min-height: 0; /* Απαραίτητο για να μην σπρώχνει το ημερολόγιο */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 10px 15px;
+}
+
+.news-box h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.05rem;
+}
+
+.news-list {
+    overflow-y: auto; /* Αν υπάρχουν πολλά νέα, εμφανίζει διακριτικό scroll μόνο μέσα στα νέα */
+    margin: 0;
+    padding-right: 5px;
+}
+/* 1. Μείωση ύψους της μπλε επικεφαλίδας (header) */
+.top-bar header {
+    padding: 4px 15px !important; /* Ελάχιστο κενό πάνω και κάτω */
+    min-height: unset !important;
+}
+
+.top-bar header h1 {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 1.25rem !important; /* Πιο μαζεμένο μέγεθος τίτλου */
+    line-height: 1.15 !important;
+}
+
+/* 2. Μείωση πλάτους της δεξιάς στήλης (Ημερολόγιο & Νέα) */
+.home-layout {
+    grid-template-columns: auto 290px !important; /* Αλλάξτε το 290px (π.χ. 270px - 310px) ανάλογα πόσο στενό το θέλετε */
+    justify-content: center; /* Κεντράρει όλο το σύνολο (φωτογραφία + δεξιά στήλη) */
+    height: calc(100vh - 155px) !important; /* Προσαρμόζεται στο νέο, μικρότερο ύψος του header */
+}
+
+/* 3. Αύξηση του ύψους του ημερολογίου */
+.calendar-card {
+    flex-shrink: 0;
+}
+
+.calendar-header {
+    padding: 10px !important;
+    font-size: 1.05rem !important;
+}
+
+.calendar-body {
+    padding: 16px 12px !important; /* Περισσότερος αέρας πάνω-κάτω για να ψηλώσει */
+}
+
+.calendar-date-num {
+    font-size: 2.5rem !important; /* Λίγο μεγαλύτερος ο αριθμός της ημέρας */
+    margin: 6px 0 !important;
+}
+
+.calendar-feast {
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+}
+
+/* 1. Η φωτογραφία πιάνει όλο τον χώρο αριστερά (1fr) και το ημερολόγιο πάει τέρμα δεξιά (310px) */
+.home-layout {
+    display: grid !important;
+    grid-template-columns: 1fr 330px !important; 
+    gap: 15px !important;
+    height: calc(100vh - 180px) !important; 
+    min-height: 360px !important;
+    max-height: 500px !important;
+    padding: 10px 15px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+/* 2. Πλαίσιο φωτογραφίας που γεμίζει όλη την αριστερή στήλη */
+.home-photo {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+}
+
+/* 3. Η φωτογραφία καλύπτει όλο το πλάτος και το ύψος αριστερά, κρατώντας ορατά τα σκαλοπάτια */
+.home-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; 
+    object-position: center bottom !important; /* Εγγυάται ότι τα σκαλοπάτια κάτω μένουν πάντα ορατά */
+    display: block !important;
+}
+
+.home-layout {
+    grid-template-columns: 1fr 280px !important; /* Λίγο πιο φαρδιά δεξιά στήλη για σωστή αναλογία εικόνας */
+}
+
+.home-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important; /* Δείχνει 100% από τον σταυρό μέχρι τα σκαλοπάτια */
+    display: block !important;
+}
+
+/* 4. Δεξιά στήλη και Scroll στα "Τελευταία Νέα" */
+.home-sidebar {
+    height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    overflow: hidden !important;
+}
+
+.news-box {
+    flex: 1 !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 10px 15px !important;
+    overflow: hidden !important;
+}
+
+.news-box h3 {
+    flex-shrink: 0 !important;
+    margin: 0 0 8px 0 !important;
+}
+
+/* Ενεργοποιεί το scroll αποκλειστικά στη λίστα των νέων */
+.news-list {
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    padding-right: 6px !important;
+}
+
+/* Προαιρετικό: Όμορφη, λεπτή μπάρα κύλισης για τα νέα */
+.news-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.news-list::-webkit-scrollbar-thumb {
+    background-color: #c5a028; /* Χρυσό χρώμα που ταιριάζει με το μενού σας */
+    border-radius: 4px;
+}
+
+
+/* =========================================================
+   4. ΚΑΝΟΝΕΣ RESPONSIVE ΓΙΑ ΚΙΝΗΤΑ ΚΑΙ TABLET (@media)
+   ========================================================= */
+@media (max-width: 768px) {
+    /* Λίγο πιο μικρός ο τίτλος του Ναού στα κινητά */
+    .top-bar header h1 {
+        font-size: 1.05rem !important;
+    }
+
+    /* Μετατροπή σε 1 στήλη 100% πλάτους και ελεύθερο ύψος */
+    .home-layout {
+        grid-template-columns: 1fr !important;
+        height: auto !important;
+        max-height: none !important;
+        padding: 10px;
+    }
+
+    /* Η φωτογραφία πιάνει όλο το πλάτος του κινητού χωρίς να κόβεται */
+    .home-photo {
+        height: auto;
+    }
+
+    .home-photo img {
+        width: 100%;
+        height: auto;
+        max-height: 450px;
+        object-fit: contain;
+    }
+
+    /* Το ημερολόγιο και τα νέα παίρνουν το 100% του πλάτους από κάτω */
+    .home-sidebar {
+        height: auto;
+        width: 100%;
+    }
+
+    .news-box {
+        max-height: 250px; /* Περιορίζει λίγο τα νέα στο κινητό για να μη μακραίνει πολύ η σελίδα */
+    }
+}
